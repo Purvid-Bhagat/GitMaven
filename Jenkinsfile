@@ -17,15 +17,10 @@ podTemplate(containers: [
 
 {
   node(POD_LABEL) {
- stage('Get a Maven project') {
- git 'https://github.com/dlambrig/simple-java-mavenapp.git'
- container('maven') {
- stage('Build a Maven project') {
- sh '''
-echo "maven build"
-mvn -B -DskipTests clean package
- '''
- }
+    stage('Build Petclinic Java App') {
+      git url: 'https://github.com/spring-projects/spring-petclinic.git', branch: 'main'
+      container('maven') {
+        sh 'mvn -B -ntp clean package -DskipTests'
       }
     }
   }
